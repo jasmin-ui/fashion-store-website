@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style8.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    .flex-container {
+      display: flex;
+      margin-top: 120px;
+    }
+
+    .filter-section {
+      width: 250px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      font-family: Arial, sans-serif;
+      flex: 0 0 20%;
+      position: sticky;
+      top: 0;
+      height: fit-content;
+    }
+
+    .filter-section h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #222;
+      color: #e91e63
+    }
+
+    .filter-group {
+      margin-bottom: 20px;
+    }
+
+    .filter-group h3 {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+
+    .filter-group input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .filter-group label:hover {
+      color: #000;
+    }
+
+    /* Product Section Layout */
+    .product-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      align-items: stretch;
+      background: #fff;
+      flex: 4;
+    }
+
+    /* Product Card */
+    .products-card {
+      flex: 0 0 calc(25% - 25px);
+      /* 4 cards per row on desktop */
+      background-color: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      text-align: center;
+
+    }
+
+    .products-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Product Image */
+    .products-card img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .products-card img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Product Name */
+    .products-card h2 {
+      font-size: 1rem;
+      color: #333;
+      margin: 12px 0 5px;
+      font-weight: 600;
+    }
+
+    /* Price */
+    .products-card p {
+      font-size: 15px;
+      color: #ff3f6c;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* Rating */
+    .products-card span {
+      display: block;
+      color: #ffb400;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    /* Button */
+    .products-card button {
+      background-color: #ff69b4;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .products-card button:hover {
+      background-color: #e6368c;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .filter-btn {
+      position: fixed;
+      top: 100px;
+      right: 0;
+      padding: 10px 15px;
+      background: #e91e63;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    #closeBtn {
+      font-weight: bold;
+      height: 25px;
+      padding: 0px 5px;
+      display: none;
+      border: 1px solid #ff3f6c;
+      color: #ff3f6c;
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+
+    #closeBtn:hover {
+      background-color: #ff3f6c;
+      color: #ffF;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .products-card {
+        flex: 0 0 calc(33.33% - 25px);
+        /* 3 per row */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .products-card {
+        flex: 0 0 calc(50% - 20px);
+        /* 2 per row */
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .products-card {
+        flex: 0 0 45%;
+        height: auto;
+        margin-top: 15px;
+
+      }
+
+      .products-card img {
+        height: 200px;
+        width: 100%;
+      }
+
+      .products-card button {
+        margin-bottom: 10px;
+      }
+
+
+      .filter-btn {
+        display: block;
+        z-index: 2;
+      }
+
+      .filter-section {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        transition: right 1s;
+        z-index: 1000;
+        top: 10%;
+        padding: 40px 25px;
+        max-width: 80%;
+        overflow-y: auto;
+        height: -webkit-fill-available;
+        box-shadow: -6px 1px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .filter-section.active {
+        right: 0
+      }
+
+      .product-section {
+        gap: 5px;
+        margin-top: 20px;
+      }
+
+      .products-card h2 {
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      #closeBtn {
+        display: block;
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <h1 class="logo">Vela</h1>
+      <div class="nav-links">
+        <ul>
+          <a href="index14.html">
+            <li>Home</li>
+          </a>
+          <a href="product1.html">
+            <li>Shop</li>
+          </a>
+          <a href="#category">
+            <li>Categories</li>
+          </a>
+          <li>About</li>
+          <li>contact</li>
+        </ul>
+      </div>
+      <div class="nav-search">
+        <span class="search-icon "><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="search" id="search" placeholder="Search Products...">
+        <div class="remove-icon" id="remove">
+          <i class="fa-solid fas fa-times"></i>
+        </div>
+      </div>
+
+      <div class="hamburger" id="hamburger">&#9776;</div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#">🏠 Home</a>
+        <a href="#">🛍️ Shop</a>
+        <a href="#">📂 Category</a>
+        <a href="#">ℹ️ About</a>
+        <a href="#">📞 Contact</a>
+        <a href="#">👤 Profile</a>
+        <hr>
+        <a href="#">Login / Signup</a>
+        <a href="#">❤️ Wishlist</a>
+        <a href="#">🔥 Today’s Deals / Offers</a>
+        <a href="#">🎟️ Coupons / Discounts</a>
+        <a href="#">💬 Help & Support</a>
+      </div>
+
+
+      <div class="icon">
+        <div class="cart-icon">
+          <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+          <span class="cart-count">0</span>
+
+          <div class="mini-cart">
+            <!---- <p class="empty-msg">Your cart is empty</p>--->
+            <div class="cart-item">
+              <img
+                src="https://images.unsplash.com/photo-1541108564883-bec8126021f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHBlcmZ1bWVzfGVufDB8fDB8fHww"
+                alt="Product">
+              <div class="item-details">
+                <p class="item-name">Roberto Cavalli Gemma Di Paradiso Perfume</p>
+                <div class="selected">
+                  <div class="option-box">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                      <option value="1">Free Size</option>
+                      <option value="2">50ml</option>
+                      <option value="3">300ml</option>
+                    </select>
+                  </div>
+                  <div class="option-box">
+                    <label for="qty">Qty:</label>
+                    <select id="qty">
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="total">Total: ₹1200</p>
+                <div class="cart-buttons">
+                  <button class="view-cart">View Cart</button>
+                  <button class="checkout">Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-icon">
+          <i class="fa-solid fa-user"></i>
+          <div class="mini-profile">
+            <p class="text2">👤 Welcome, Guest!</p>
+            <a href="#">Login / Signup</a>
+            <a href="#">🛒 View Cart</a>
+            <a href="#">❤️ Wishlist</a>
+            <a href="#">🔥 Today’s Deals / Offers</a>
+            <a href="#">🎟️ Coupons / Discounts</a>
+            <a href="#">🏠 Saved Addresses</a>
+            <a href="#">💬 Help & Support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Category Bar -->
+    <div class="category-bar">
+      <a href="#">Women</a>
+      <a href="#">Men</a>
+      <a href="#">Kids</a>
+      <a href="#">jewellery</a>
+      <a href="#">Footwear</a>
+      <a href="#">Beauty</a>
+      <a href="#">Accessories</a>
+      <a href="#">Men</a>
+      <a href="#">Kids</a>
+      <a href="#">jewellery</a>
+      <a href="#">Footwear</a>
+      <a href="#">Beauty</a>
+      <a href="#">Accessories</a>
+      <a>Sale</a>
+    </div>
+  </header>
+
+  <body>
+    <button class="filter-btn" onclick="openFilter">filter()</button>
+    <div class="flex-container">
+      <div class="filter-section">
+        <div class="header">
+          <h2>Filters by</h2>
+          <button id="closeBtn">Close</button>
+        </div>
+        <div class="filter-group">
+          <h3>Category</h3>
+          <label><input type="checkbox">Silk Sarees</label>
+          <label><input type="checkbox">Cotton Sarees</label>
+          <label><input type="checkbox">Georgette Sarees</label>
+          <label><input type="checkbox">Banarasi Sarees</label>
+          <label><input type="checkbox">Organza Sarees</label>
+          <label><input type="checkbox">Casual Sarees</label>
+        </div>
+        <div class="filter-group">
+          <h3>Color</h3>
+          <label><input type="checkbox" name="color" value="Red"> Red</label>
+          <label><input type="checkbox" name="color" value="Blue"> Blue</label>
+          <label><input type="checkbox" name="color" value="Black"> Black</label>
+          <label><input type="checkbox" name="color" value="White"> White</label>
+          <label><input type="checkbox" name="color" value="golden"> White</label>
+          <label><input type="checkbox" name="color" value="Pink">Pink</label>
+          <label><input type="checkbox" name="color" value="Green">Green</label>
+
+        </div>
+
+        <div class="filter-group">
+          <h3>Occasion</h3>
+          <label><input type="checkbox" name="occasion" value="festive">Festive</label>
+          <label><input type="checkbox" name="occasion" value="wedding">Wedding</label>
+          <label><input type="checkbox" name="occasion" value="party">Party</label>
+          <label><input type="checkbox" name="occasion" value="office wear">Office Wear</label>
+          <label><input type="checkbox" name="occasion" value="daily wear">Daily Wear</label>
+        </div>
+
+        <div class="filter-group">
+          <h3>Price</h3>
+          <label><input type="checkbox" name="price" value="0-500"> ₹0 - ₹500</label>
+          <label><input type="checkbox" name="price" value="500-1000"> ₹500 - ₹1000</label>
+          <label><input type="checkbox" name="price" value="1000-2000"> ₹1000 - ₹2000</label>
+          <label><input type="checkbox" name="price" value="1000-2000"> ₹2000 - ₹3000</label>
+
+        </div>
+      </div>
+      <div class="product-section">
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Column 1: Brand Info -->
+        <div class="footer-col">
+          <h2 class="footer-logo">Vela</h2>
+          <p class="footer-desc">Vela – Trendy fashion for every style. Discover the latest trends and timeless
+            classics.
+          </p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Customer Service -->
+        <div class="footer-col">
+          <h3>Customer Service</h3>
+          <ul>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Newsletter & Social -->
+        <div class="footer-col">
+          <h3>Subscribe</h3>
+          <p>Get the latest deals & trends</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a> <!-- Facebook -->
+            <a href="#"><i class="fa-brands fa-square-twitter"></i></a> <!-- Twitter -->
+            <a href="#"><i class="fa-brands fa-square-instagram"></i></a> <!-- Instagram -->
+            <a href="#"><i class="fa-brands fa-pinterest"></i></a> <!-- Pinterest -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <p>© 2025 Vela. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const sareeProducts = [
+        {
+          id: 201,
+          img: "https://i.pinimg.com/1200x/69/35/cb/6935cb426988de0da2263194c0ad62e9.jpg",
+          name: "Pink Banarasi Silk Saree",
+          price: "₹2499",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 202,
+          img: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR-Wdzy6TjG_Vs1v2okAG3r_pRgWKQc8aAjkxarn_TpOaFQztT-5EF9XW75wHhjY0yH8KI9ePAwbTFVtYk-XQgvVUeZfN1yl_P248v87Xw-OX3Yliq_IKSxew",
+          name: "Red Kanjivaram Saree",
+          price: "₹3199",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 203,
+          img: "https://i.pinimg.com/736x/5f/8d/47/5f8d47e6e1e9647a01b32d749b02f3a7.jpg",
+          name: "Blue Georgette Saree",
+          price: "₹1899",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 204,
+          img: "https://i.pinimg.com/736x/32/90/32/32903224f89291d98e36a52075e751cf.jpg",
+          name: "Golden Partywear Saree",
+          price: "₹2899",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 205,
+          img: "https://i.pinimg.com/736x/ee/ea/f6/eeeaf6a775f5db42b1a6fd631c84fdb7.jpg",
+          name: "Cream Organza Saree",
+          price: "₹2599",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 206,
+          img: "https://i.pinimg.com/736x/1d/e2/1a/1de21a5f870cca4557180b8b080709c3.jpg",
+          name: "Green Floral Print Saree",
+          price: "₹1799",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 207,
+          img: "https://i.pinimg.com/1200x/19/d6/99/19d699b37d3ea22af268a0f564417584.jpg",
+          name: "Maroon Velvet Saree",
+          price: "₹2999",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 208,
+          img: "https://i.pinimg.com/736x/06/65/c6/0665c63337d3f75943a7cace896ac872.jpg",
+          name: "Peach Satin Saree",
+          price: "₹2399",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 209,
+          img: "https://i.pinimg.com/1200x/b7/8a/31/b78a31a7f005f6de52c8906b2af911f5.jpg",
+          name: "Royal Blue Chiffon Saree",
+          price: "₹1599",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 210,
+          img: "https://i.pinimg.com/736x/c2/c9/39/c2c9393edeca6c7d194b9c49f2ccabf6.jpg",
+          name: "Black Sequin Party Saree",
+          price: "₹2699",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 211,
+          img: "https://i.pinimg.com/736x/03/b5/20/03b52052a9132f2c802d2a326b65366f.jpg",
+          name: "Sky Blue Linen Saree",
+          price: "₹1699",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 212,
+          img: "https://i.pinimg.com/1200x/69/fa/17/69fa174b5f573b795be3012b62e42f0f.jpg",
+          name: "Lavender Embroidered..",
+          price: "₹2599",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 213,
+          img: "https://i.pinimg.com/1200x/82/ab/c5/82abc50e4146e11c0a7e3c85c002f4cc.jpg",
+          name: "Yellow Silk Saree",
+          price: "₹2299",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 214,
+          img: "https://i.pinimg.com/736x/c6/d5/5e/c6d55ef4a67ac84b2ef2e67ad92557cb.jpg",
+          name: "Rose Gold Saree",
+          price: "₹2799",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 215,
+          img: "https://i.pinimg.com/736x/66/ef/3c/66ef3c8cac329cd03cf213e64471117c.jpg",
+          name: "Orange Cotton Saree",
+          price: "₹1499",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 216,
+          img: "https://i.pinimg.com/1200x/cf/8e/53/cf8e53837715870525354a47a30d39b9.jpg",
+          name: "Cream Gold Banarasi...",
+          price: "₹3199",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 217,
+          img: "https://i.pinimg.com/736x/15/f8/1b/15f81b228a521132d10ff53c497b74a6.jpg",
+          name: "Navy Blue Saree",
+          price: "₹2799",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 218,
+          img: "https://i.pinimg.com/736x/f6/ff/b2/f6ffb2178687dc8824d15b24c948ec34.jpg",
+          name: "Partywear Georgette Saree",
+          price: "₹1999",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 219,
+          img: "https://i.pinimg.com/1200x/17/5d/a9/175da9a9bd9e3819ac2e8f6bce6a9bc6.jpg",
+          name: "Pastel Pink Net Saree",
+          price: "₹1899",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 220,
+          img: "https://i.pinimg.com/1200x/52/08/42/5208427f4f5b83980aef928d227f765a.jpg",
+          name: "Olive Green Saree",
+          price: "₹2399",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 221,
+          img: "https://i.pinimg.com/736x/d1/85/d4/d185d4a5b59666981bd972a34ec6bee3.jpg",
+          name: "Golden Tissue Saree",
+          price: "₹2599",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 222,
+          img: "https://i.pinimg.com/1200x/0a/1c/67/0a1c672e2a2468896f05195352e45d82.jpg",
+          name: "Sea Green Silk Saree",
+          price: "₹2999",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 223,
+          img: "https://i.pinimg.com/1200x/e8/6d/19/e86d19ce4c42c220bba4ffd486c80ed7.jpg",
+          name: "Light Pink Printed Saree",
+          price: "₹1599",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 224,
+          img: "https://i.pinimg.com/736x/d1/6b/8d/d16b8ddf7c704df119983e0135e0fa9b.jpg",
+          name: "Purple Net Saree",
+          price: "₹2799",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 225,
+          img: "https://i.pinimg.com/736x/5d/a8/c1/5da8c1ce318704c7267a4739bf372b93.jpg",
+          name: "Beige Embellished Saree",
+          price: "₹2699",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 226,
+          img: "https://i.pinimg.com/736x/d1/2f/d8/d12fd8bf8134758c193df1966eeb9499.jpg",
+          name: "Baby Blue Printed Saree",
+          price: "₹1799",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 227,
+          img: "https://i.pinimg.com/1200x/2c/61/2a/2c612a0bf0016c9499b58346f68c8cf0.jpg",
+          name: "Maroon Cotton Saree",
+          price: "₹1499",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 228,
+          img: "https://i.pinimg.com/736x/7a/c6/69/7ac669389ba0f586b53a47ef06a78485.jpg",
+          name: "Pink Banarasi Saree",
+          price: "₹3099",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 229,
+          img: "https://i.pinimg.com/1200x/a7/39/c6/a739c6ad216a1d420f5ac7248a0a6da3.jpg",
+          name: "Yellow Organza Saree",
+          price: "₹1999",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 230,
+          img: "https://i.pinimg.com/736x/8d/4d/c8/8d4dc8564c31fa20bd204df27dc73b0b.jpg",
+          name: "Teal Blue Saree",
+          price: "₹2899",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 231,
+          img: "https://i.pinimg.com/736x/c8/d9/c2/c8d9c2ab8bc9e785b0886ff549218304.jpg",
+          name: "Coral Red Chiffon Saree",
+          price: "₹1699",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 232,
+          img: "https://i.pinimg.com/736x/91/d0/aa/91d0aa682b78b54982bbf59c0c088288.jpg",
+          name: "Silver Grey net Saree",
+          price: "₹2799",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 233,
+          img: "https://i.pinimg.com/1200x/b8/98/27/b898272cf7f5cb3bb50960e56877e84b.jpg",
+          name: "Royal Blue Cotton Saree",
+          price: "₹1499",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 234,
+          img: "https://i.pinimg.com/1200x/e1/76/70/e17670154f5d001e02434e30818a5cd7.jpg",
+          name: "Orange Silk Blend Saree",
+          price: "₹2399",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 235,
+          img: "https://i.pinimg.com/736x/85/90/b8/8590b8552edcc36156cc12cd95bd4117.jpg",
+          name: "Ivory Gold Border Saree",
+          price: "₹2599",
+          rating: "⭐⭐⭐⭐",
+        },
+        {
+          id: 236,
+          img: "https://i.pinimg.com/1200x/2a/2e/1a/2a2e1a4b570fbb9a6800e5397fe66fbb.jpg",
+          name: "Wine Velvet Saree",
+          price: "₹2999",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 237,
+          img: "https://i.pinimg.com/1200x/46/8a/a7/468aa7cb0438793c409ab759ede0861a.jpg",
+          name: "Floral Print Saree",
+          price: "₹1899",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 238,
+          img: "https://i.pinimg.com/736x/74/f6/64/74f664cf621edc941690e9a9ad1a23b6.jpg",
+          name: "Beige Handloom Saree",
+          price: "₹1699",
+          rating: "⭐⭐⭐✨",
+        },
+        {
+          id: 239,
+          img: "https://i.pinimg.com/736x/07/ab/90/07ab90f3852463ed2d3f6fe7edc0263d.jpg",
+          name: "Fuchsia Pink Saree",
+          price: "₹2899",
+          rating: "⭐⭐⭐⭐✨",
+        },
+        {
+          id: 240,
+          img: "https://i.pinimg.com/736x/59/a7/1a/59a71ad400959c8e1d2cc4804da5c058.jpg",
+          name: "Cream Zari Border Saree",
+          price: "₹2699",
+          rating: "⭐⭐⭐⭐",
+        }
+      ];
+
+      let urlParams2 = new URLSearchParams(window.location.search);
+      let sareeid = parseInt(urlParams2.get("id"));
+
+      let list = document.querySelector(".product-section");
+      if (sareeid === 160) {
+
+        function sareeProduct(arry) {
+          arry.forEach(function (user) {
+
+            let card = document.createElement("card");
+            card.className = "products-card"
+
+            let img = document.createElement("img");
+            img.src = user.img;
+
+            let name = document.createElement("h2")
+            name.textContent = user.name;
+
+            let price = document.createElement("p");
+            price.textContent = user.price;
+
+            let rating = document.createElement("span");
+            rating.textContent = user.rating;
+
+            let btn = document.createElement("button");
+            btn.textContent = "Buy-Now";
+            btn.className = "Buy-Now"
+            btn.dataset.id = user.id
+
+            document.querySelectorAll(".Buy-Now").forEach(function (btn) {
+              btn.addEventListener("click", function () {
+                window.location.href = `payment.html?id=${btn.dataset.id}`;
+              });
+            })
+
+
+
+            card.appendChild(img);
+            card.appendChild(name);
+            card.appendChild(price);
+            card.appendChild(rating);
+            card.appendChild(btn);
+            list.appendChild(card);
+
+          })
+        }
+      }
+      sareeProduct(sareeProducts);
+
+      function filterBtn() {
+        let filterBtn = document.querySelector(".filter-btn");
+        let filterSection = document.querySelector(".filter-section");
+        let closeBtn = document.querySelector("#closeBtn");
+
+        filterBtn.addEventListener("click", function () {
+          filterSection.classList.add("active");
+        })
+        closeBtn.addEventListener("click", function () {
+          filterSection.classList.remove("active");
+        })
+
+      }
+      filterBtn()
+
+    </script>
+    <script src="script8.js"></script>
+  </body>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style8.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Container */
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 10px;
+            margin-top: 120px;
+        }
+
+        /* Filter - Left Sidebar */
+        #closeBtn {
+            display: none;
+        }
+
+        .filter {
+            position: sticky;
+            top: 0;
+            flex: 0 0 20%;
+            max-width: 250px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fdfdfd;
+            height: fit-content;
+        }
+
+
+        .filter-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-btn {
+            position: fixed;
+            top: 100px;
+            right: 0;
+            padding: 10px 15px;
+            background: #e91e63;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            display: none;
+
+        }
+
+
+        /* Products - Right Section */
+        .products {
+            flex: 3;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Single Product Card */
+        .product-card {
+            flex: 1 1 200px;
+            /* minimum width 200px */
+            max-width: 250px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            text-align: center;
+            height: 450px;
+            margin-top: 10px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 50px 20px;
+                margin-top: 120px;
+                /* filter upar, products niche */
+            }
+
+            .product-card h4 {
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .price {
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            .filter-btn {
+                display: block;
+                z-index: 2;
+
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+            }
+
+            .filter-content {
+                padding-bottom: 15px;
+                -webkit-overflow-scrolling: touch;
+                box-sizing: border-box;
+                flex: 1;
+                height: 100vh;
+            }
+
+            .filter {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                transition: right 1s;
+                z-index: 1000;
+                top: 10%;
+                padding: 30px 25px;
+                max-width: 80%;
+                overflow-y: auto;
+                height: -webkit-fill-available;
+                box-shadow: -6px 1px 10px rgba(0, 0, 0, 0.2);
+
+            }
+
+            .filter.active {
+                right: 0;
+            }
+
+            #closeBtn {
+                font-weight: bold;
+                height: 25px;
+                padding: 0px 5px;
+                display: block;
+                outline: none;
+                font-size: 1rem;
+                border: 1px solid #ff3f6c;
+                color: #ff3f6c;
+                background-color: white;
+                transition: all 0.3s ease;
+                margin-top: 5px;
+
+            }
+
+            #closeBtn:hover {
+                background-color: #ff3f6c;
+                color: #ffF;
+            }
+
+            .product-card img {
+                height: 200px;
+
+            }
+
+            .products {
+                justify-content: center;
+                gap: 9px;
+                /* products center me aa jayenge */
+            }
+
+            .product-card {
+                flex: 1 1 45%;
+                /* 2 products ek row me approx */
+                max-width: 100%;
+                height: 330px;
+                margin-bottom: 10px;
+
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <h1 class="logo">Vela</h1>
+            <div class="nav-links">
+                <ul>
+                    <li>Home</li>
+                    <li>Shop</li>
+                    <li>Categories</li>
+                    <li>About</li>
+                    <li>contact</li>
+                </ul>
+            </div>
+            <div class="nav-search">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="search" id="search" placeholder="Search Products...">
+                <div class="remove-icon" id="remove">
+                    <i class="fa-solid fas fa-times"></i>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#">🏠 Home</a>
+                <a href="#">🛍️ Shop</a>
+                <a href="#">📂 Category</a>
+                <a href="#">ℹ️ About</a>
+                <a href="#">📞 Contact</a>
+                <a href="#">👤 Profile</a>
+                <hr>
+                <a href="#">Login / Signup</a>
+                <a href="#">❤️ Wishlist</a>
+                <a href="#">🔥 Today’s Deals / Offers</a>
+                <a href="#">🎟️ Coupons / Discounts</a>
+                <a href="#">💬 Help & Support</a>
+            </div>
+
+
+            <div class="icon">
+                <div class="cart-icon">
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <span class="cart-count">0</span>
+                    <div class="mini-cart">
+                        <!---- <p class="empty-msg">Your cart is empty</p>--->
+                        <div class="cart-item">
+                            <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRxoyvqvZP1winHZl_lLnBpt-W_UkRdaKTIDtTrfBFXHc0FGqCXaGP7bpPtI-Bkn6EH5FffJhCHvsBOsf0A4kDI_4HAbfKsx4RPQUd2vPnXOJGFiFi71nBnmQ&usqp=CAc"
+                                alt="Product">
+                            <div class="item-details">
+                                <p class="item-name">Roberto Cavalli Gemma Di Paradiso Perfume</p>
+                                <div class="selected">
+                                    <div class="option-box">
+                                        <label for="size">Size:</label>
+                                        <select id="size">
+                                            <option value="1">Free Size</option>
+                                            <option value="2">50ml</option>
+                                            <option value="3">300ml</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-box">
+                                        <label for="qty">Qty:</label>
+                                        <select id="qty">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="total">Total: ₹1200</p>
+                                <div class="cart-buttons">
+                                    <button class="view-cart">View Cart</button>
+                                    <button class="checkout">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-icon">
+                    <i class="fa-solid fa-user"></i>
+                    <div class="mini-profile">
+                        <p class="text2">👤 Welcome, Guest!</p>
+                        <a href="#">Login / Signup</a>
+                        <a href="#">🛒 View Cart</a>
+                        <a href="#">❤️ Wishlist</a>
+                        <a href="#">🔥 Today’s Deals / Offers</a>
+                        <a href="#">🎟️ Coupons / Discounts</a>
+                        <a href="#">🏠 Saved Addresses</a>
+                        <a href="#">💬 Help & Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="category-bar">
+            <a href="#">Women</a>
+            <a href="#">Men</a>
+            <a href="#">Kids</a>
+            <a href="#">jewellery</a>
+            <a href="#">Footwear</a>
+            <a href="#">Beauty</a>
+            <a href="#">Accessories</a>
+            <a href="#">Men</a>
+            <a href="#">Kids</a>
+            <a href="#">jewellery</a>
+            <a href="#">Footwear</a>
+            <a href="#">Beauty</a>
+            <a href="#">Accessories</a>
+            <a>Sale</a>
+        </div>
+    </header>
+    <main>
+        <button class="filter-btn" onclick="openFilter">filter()</button>
+        <div class="container">
+
+            <!-- Left Filter Section -->
+            <div class="filter">
+                <div class="header">
+                    <h3>Filter by</h3>
+                    <button id="closeBtn">Close</button>
+                </div>
+                <!-- Category -->
+                <div class="filter-content">
+                    <h4>Category</h4>
+                    <label><input type="checkbox"> Shirts</label>
+                    <label><input type="checkbox"> Dresses</label>
+                    <label><input type="checkbox"> Jeans</label>
+                    <label><input type="checkbox"> Shoes</label>
+                    <label><input type="checkbox"> Bags</label>
+                    <hr>
+
+                    <!-- Gender -->
+                    <h4>Gender</h4>
+                    <label><input type="checkbox"> Men</label>
+                    <label><input type="checkbox"> Women</label>
+                    <label><input type="checkbox"> Kids</label>
+                    <hr>
+
+                    <!-- Size -->
+                    <h4>Size</h4>
+                    <label><input type="checkbox"> Small</label>
+                    <label><input type="checkbox"> Medium</label>
+                    <label><input type="checkbox"> Large</label>
+                    <label><input type="checkbox"> XL</label>
+                    <hr>
+
+                    <!-- Color -->
+                    <h4>Color</h4>
+                    <label><input type="checkbox"> Red</label>
+                    <label><input type="checkbox"> Blue</label>
+                    <label><input type="checkbox"> Black</label>
+                    <label><input type="checkbox"> White</label>
+                    <hr>
+
+                    <!-- Price -->
+                    <h4>Price</h4>
+                    <label><input type="checkbox"> Below ₹500</label>
+                    <label><input type="checkbox"> ₹500 - ₹1000</label>
+                    <label><input type="checkbox"> Above ₹1000</label>
+                    <hr>
+
+                    <!-- Brand -->
+                    <h4>Brand</h4>
+                    <label><input type="checkbox"> Nike</label>
+                    <label><input type="checkbox"> Adidas</label>
+                    <label><input type="checkbox"> Zara</label>
+                    <label><input type="checkbox"> H&M</label>
+                    <hr>
+
+                    <!-- Discount -->
+                    <h4>Discount</h4>
+                    <label><input type="checkbox"> 10% or more</label>
+                    <label><input type="checkbox"> 20% or more</label>
+                    <label><input type="checkbox"> 50% or more</label>
+                    <hr>
+                    <h3>Rating</h3>
+                    <label><input type="checkbox"> ⭐⭐ & above</label>
+                    <label><input type="checkbox"> ⭐⭐⭐ & above</label>
+                    <label><input type="checkbox"> ⭐⭐⭐⭐ & above</label>
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Right Products Section -->
+            <div class="products">
+                <!-- Repeat these product cards 20–30 times -->
+                <div class="product-card">
+                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ3JXMXSV3pCmrbT0iRJCI1xaxvVFV5980j1Cko4hTEpQjczyyHaKToZXu0h6UEBXBysc9hirMlZsQzQTahucf-qI3eZ6j1fuD7JlG8qEc"
+                        alt="Product 1">
+                    <h4>Pink Kurta Suit Set </h4>
+                    <p class="price">₹2100</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="101">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/5e/4a/ea/5e4aea3ba5e00bcc846e8127d4415d95.jpg" alt="Product 2">
+                    <h4> Print Lehenga...</h4>
+                    <p class="price">₹7000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="102">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://anayadesignerstudio.com/cdn/shop/files/Wedding_Lehenga_Choli.webp?v=1751109773&width=1100"
+                        alt="Product 3">
+                    <h4>Lehenga Choli</h4>
+                    <p class="price">₹4000</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="103">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTk97guPjY4LcALE2vPoh5r3i_CEWMwdWTXPb91U_XOiReMrbdmZttnCX9nBgoqTJUJQJTF9IykRZGxnfyDuJ3whxY-SCO5h0_Iy9uC7w9k"
+                        alt="Product 4">
+                    <h4>Sharara Set</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="104">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/af/2a/3c/af2a3c108892363a12c1066058a047b5.jpg" alt="Product 5">
+                    <h4>Stripe Jacket Set</h4>
+                    <p class="price">₹4000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="105">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/12/96/d1/1296d1824afe1cbd88c1923001d01d7b.jpg" alt="Product 6">
+                    <h4>Printed Lehenga</h4>
+                    <p class="price">₹6000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="106">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/e7/0d/a0/e70da02f2695afbb7a37d0fb8d47be93.jpg" alt="Product 7">
+                    <h4>Lehenga Set...</h4>
+                    <p class="price">₹2300</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="107">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/b3/ae/88/b3ae881dbfa870737f30292835e3313b.jpg" alt="Product 8">
+                    <h4>Blue lehenga set...</h4>
+                    <p class="price">₹2500</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="108">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/a8/63/ab/a863ab3e7cedf9a7b1a45e01b6877ff0.jpg" alt="Product 9">
+                    <h4>Anarkali set...</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="109">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/df/d2/cc/dfd2ccc5f84eb91e0d4d95f7a79557fc.jpg" alt="Product 10">
+                    <h4>Lehenga Choli...</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="110">Add to Cart</button>
+                </div>
+
+                <!-- Add more up to 20–30 products -->
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/3e/f9/4c/3ef94c99a140bcf74992686d54fc0ddf.jpg" alt="Product 11">
+                    <h4> Bridal Lehenga Set</h4>
+                    <p class="price">₹6000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="111">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/cd/c7/52/cdc752101c04b381f3a721811e872355.jpg"
+                        alt="Product 12">
+                    <h4>Anarkali Suit Set</h4>
+                    <p class="price">₹4000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="112">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/f5/56/8f/f5568f1247e6b9be2290c53958f67c1d.jpg"
+                        alt="Product 13">
+                    <h4>sharara set</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="113">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/73/ad/20/73ad207da228ae5292bf0a985060fb90.jpg"
+                        alt="Product 14">
+                    <h4>Anarkali Gown</h4>
+                    <p class="price">₹1200</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="114">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/63/58/c4/6358c4ff561ab92eb56acbb915ab678f.jpg" alt="Product 15">
+                    <h4>Anarkali Kurta set</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="115">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/97/60/b6/9760b63fdecb132b8c91a879fd8b64a4.jpg" alt="
+                        Product 16">
+                    <h4>Lehenga Choli</h4>
+                    <p class="price">₹2400</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="116">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/1c/d6/13/1cd61375bfb5ffb682e4e6df86d3fa79.jpg"
+                        alt="Product 17">
+                    <h4>Silk Lehenga Choli</h4>
+                    <p class="price">₹4000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="117">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/6f/c8/bd/6fc8bd14ca17d704afc457a91fb79618.jpg" alt="Product 18">
+                    <h4>Lehenga Set</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="118">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTQS2V3atSh-nLrAaF5N3Tq3j6jfspYqlQLaHfvrBEyJfz79qoMMLM6gbFm1cPksA28dDNtLmXXp13Wz2hiWgQwB2TOWdpa3tpgBvzUbjNywPguLhJgerAYfQ"
+                        alt="Product 19">
+                    <h4>anarkali gowan...</h4>
+                    <p class="price">₹1,346</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="119">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSKFbKPyRvzMvNwIksgmsRBmCuqaAx0_bWYQqpi3AotfTZ3kG96Hnu0imu2X7BsekgOeP4jnW0KT91eLyx71Oat82bUzjDEnV6ZeUomWgDz"
+                        alt="Product 20">
+                    <h4>Anarkali Suit</h4>
+                    <p class="price">₹2,499</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="120">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/04/e2/18/04e21839488f243b2f9e6543df804a53.jpg"
+                        alt="Product 21">
+                    <h4>Anarkali gown</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="121">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/4b/48/d9/4b48d9c712e9222884a45d823d72595f.jpg" alt="Product 22">
+                    <h4>Anarkali Gown</h4>
+                    <p class="price">₹2,699</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="122">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/13/b1/f1/13b1f14b287ee5b0861f32bdb0c964f2.jpg"
+                        alt="Product 23">
+                    <h4>Anarkali Suit Set</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="123">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/5f/fc/ae/5ffcae7ab6a05e6e3a8c7e0e988c03d2.jpg"
+                        alt="Product 24">
+                    <h4>Gown Suit</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="124">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/2b/ec/12/2bec124d451efffec0b2c1f198aaca33.jpg"
+                        alt="Product 25">
+                    <h4>suit set</h4>
+                    <p class="price">₹4000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="125">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/6f/de/d9/6fded9a4259bdb457e3cd0175920fce7.jpg" alt="Product 26">
+                    <h4>Lehenga Choli Set</h4>
+                    <p class="price">₹5000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="126">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/36/c5/2a/36c52a0c0cb89a8084a0404370f558d9.jpg" alt="Product 27">
+                    <h4>Anarkali Suit</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="127">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/d2/7a/86/d27a86a46d4b84e0094f3d8564697ad6.jpg" alt="Product 28">
+                    <h4>Co-ord Set</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="128">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/63/47/2f/63472ff72e486a5fd4d04aaf6fec05d4.jpg"
+                        alt="Product 29">
+                    <h4>Noorani Suit Set</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="129">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/77/69/b2/7769b250e08b4de3b5a0b049d1c35446.jpg" alt="Product 30">
+                    <h4>Sharara Dupatta Set</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="130">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/99/3a/86/993a86015de006a705f9fe4ffb943de7.jpg"
+                        alt="Stylish Glasses">
+                    <h4>Lehnga Choli</h4>
+                    <div class="price">₹2000</div>
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <button class="product-btn" data-id="131">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/43/a9/52/43a952fa1ecfef2de257217a56b8dddd.jpg"
+                        alt="Classic Watch">
+                    <h4>Kurta Sharara Set</h4>
+                    <div class="price">₹3000</div>
+                    <div class="rating">⭐⭐⭐⭐☆</div>
+                    <button class="product-btn" data-id="132">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/c7/0e/4b/c70e4b9d37de508ab1adba200f9acef1.jpg"
+                        alt="Men's Jeans">
+                    <h4>Kurta Skirt Set</h4>
+                    <p class="price">₹5000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="133">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/4f/e5/c6/4fe5c6321467239fa6b3583875138648.jpg"
+                        alt="Men's Shirt">
+                    <h4>Sharara Set</h4>
+                    <p class="price">₹5000</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="134">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/87/f3/29/87f329babdd59ef39177b34c7477bf7d.jpg"
+                        alt="Men's Jeans">
+                    <h4>Sharara Set</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="135">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/b0/04/2b/b0042b2e719fc49f51c4072b745dacef.jpg"
+                        alt="Women's Saree">
+                    <h4>Sharara Set...</h4>
+                    <p class="price">₹2,999</p>
+                    <p class="rating">⭐⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="136">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/db/ef/5a/dbef5ae394b12daef648340165fced1d.jpg"
+                        alt="Women's Kurti">
+                    <h4>Milti-color Sharara</h4>
+                    <p class="price">₹2000</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="137">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/e0/6b/4c/e06b4cd2c2bb8dc4b601ede7280d0ab2.jpg"
+                        alt="Men's Jacket">
+                    <h4>Sharara Set</h4>
+                    <p class="price">₹3000</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="138">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/c7/e7/48/c7e748c86e1c007b77fc5e6d8102bdc4.jpg"
+                        alt="Women's Top">
+                    <h4>Sharara Set</h4>
+                    <p class="price">₹4,800</p>
+                    <p class="rating">⭐⭐⭐⭐</p>
+                    <button class="product-btn" data-id="139">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/ea/ff/71/eaff71bf9304aaed41112731ef8bc428.jpg"
+                        alt="Men's T-Shirt">
+                    <h4>Flared Kurta Set </h4>
+                    <p class="price">₹1,260</p>
+                    <p class="rating">⭐⭐⭐</p>
+                    <button class="product-btn" data-id="140">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="toast" id="toast">Product added to cart!</div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Brand Info -->
+            <div class="footer-col">
+                <h2 class="footer-logo">Vela</h2>
+                <p class="footer-desc">Vela – Trendy fashion for every style. Discover the latest trends and timeless
+                    classics.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Customer Service -->
+            <div class="footer-col">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter & Social -->
+            <div class="footer-col">
+                <h3>Subscribe</h3>
+                <p>Get the latest deals & trends</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a> <!-- Facebook -->
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a> <!-- Twitter -->
+                    <a href="#"><i class="fa-brands fa-square-instagram"></i></a> <!-- Instagram -->
+                    <a href="#"><i class="fa-brands fa-pinterest"></i></a> <!-- Pinterest -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>© 2025 Vela. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script src="script8.js"></script>
+    <script src="script9.js"></script>
+
+</body>
+
+</html>

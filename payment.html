@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background: #f9f9f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      font-family: sans-serif;
+    }
+
+
+    /* ✅ Container */
+    .product-container,
+    .form-section {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 15px 0;
+      max-width: 600px;
+    }
+
+    /* ✅ Product Section */
+    .product-container h1 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #444;
+      text-align: center;
+    }
+
+    #prod-img {
+      width: 100%;
+      max-width: 250px;
+      display: block;
+      margin: 0 auto 15px;
+      border-radius: 8px;
+    }
+
+    .prod-name {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .prod-price {
+      font-size: 18px;
+      color: #e91e63;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .prod-rating {
+      font-size: 14px;
+      color: #f39c12;
+      text-align: center;
+    }
+
+    /* ✅ Form Section */
+    .form-section h3 {
+      margin: 15px 0 10px;
+      font-size: 20px;
+      color: #444;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      height: 70px;
+    }
+
+    /* ✅ Payment */
+    form input[type="radio"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background: #e91e63;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #aa1144f9;
+    }
+
+    /* ✅ Responsive Media Queries */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;  
+         justify-content:center
+      }
+
+      .product-container,
+      .form-section {
+        padding: 15px;
+      }
+
+      .prod-name {
+        font-size: 18px;
+      }
+
+      .prod-price {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+
+      #prod-img {
+        max-width: 180px;
+      }
+
+      .product-container h1 {
+        font-size: 1rem
+      }
+
+      .prod-name {
+        font-size: 16px;
+      }
+
+      .prod-price {
+        font-size: 14px;
+      }
+
+      .prod-rating {
+        font-size: 12px;
+      }
+
+      form input,
+      form textarea {
+        width: 100%;
+        padding: 10px 5px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="product-container">
+      <h1>Checkout</h1>
+      <img id="prod-img" src="" alt="product-image">
+      <h1 class="prod-name"></h1>
+      <p class="prod-price"></p>
+      <p class="prod-rating"></p>
+    </div>
+
+    <!-- Address Form -->
+    <div class="form-section">
+      <h3>Shipping Address</h3>
+      <form id="checkout-form">
+        <label>Name:
+          <input type="text" id="cust-name" required>
+        </label>
+        <label>Mobile:
+          <input type="tel" id="cust-mobile" required>
+        </label>
+        <label>Address:
+          <textarea id="cust-address" required></textarea>
+        </label>
+        <label>City:
+          <input type="text" id="cust-city" required>
+        </label>
+        <label>Pincode:
+          <input type="text" id="cust-pincode">
+        </label>
+
+        <h3>Payment Method</h3>
+        <label><input type="radio" name="payment" value="card" checked> Card / UPI</label>
+        <label><input type="radio" name="payment" value="cod"> Cash on Delivery (COD)</label>
+
+        <button type="submit">Place Order</button>
+    </div>
+
+  </main>
+
+  <script src="script10.js"></script>
+  <script src="script12.js"></script>
+  
+
+</body>
+
+</html>

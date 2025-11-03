@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style8.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Left filter panel */
+
+        .main-section {
+            display: flex;
+            margin-top: 120px;
+        }
+
+        .filter-section {
+            flex: 0 0 20%;
+            background-color: #fff;
+            color: #222;
+            border-radius: 12px;
+            padding: 0px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 0;
+        }
+
+        .filter-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #e91e63;
+            /* Pink accent */
+            font-weight: 700;
+            padding-bottom: 5px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .filter-group input[type="checkbox"] {
+            accent-color: #e91e63;
+            /* Pink tick */
+            margin-right: 8px;
+        }
+
+        /* Right products area */
+        .product-section {
+            flex: 0 0 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        /* Each product card */
+        .products-card {
+            flex: 0 0 calc(25% - 20px);
+            background-color: #fff;
+            color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.3s ease;
+            padding: 10px;
+        }
+
+        .products-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .products-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .products-card h2 {
+            font-size: 1rem;
+            color: #333;
+            margin: 12px 0 5px;
+            font-weight: 600;
+        }
+
+        .products-card p {
+            font-size: 15px;
+            color: #ff3f6c;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .products-card span {
+            display: block;
+            color: #ffb400;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .products-card button {
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .products-card button:hover {
+            background-color: #e6368c;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-btn {
+            position: fixed;
+            top: 100px;
+            right: 0;
+            padding: 10px 15px;
+            background: #e91e63;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+
+        }
+
+        #closeBtn {
+            font-weight: bold;
+            height: 25px;
+            padding: 0px 5px;
+            display: none;
+            margin-top: 5px;
+            outline: none;
+            font-size: 1rem;
+
+        }
+
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .main-section {
+                flex-direction: column;
+            }
+
+            .product-section {
+                flex: 0 0 100%;
+                justify-content: center;
+                margin-top: 40px;
+                gap: 5px;
+            }
+
+            .products-card h2 {
+                font-size: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
+
+            .products-card {
+                flex: 0 0 45%;
+                padding: 5px;
+
+            }
+
+            .filter-section {
+                position: fixed;
+                right: 0;
+                z-index: 2;
+            }
+
+            .filter-btn {
+                display: block;
+                z-index: 2;
+            }
+
+            .filter-section {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                transition: right 1s;
+                z-index: 1000;
+                top: 10%;
+                padding: 40px 25px;
+                max-width: 80%;
+                overflow-y: auto;
+                height: -webkit-fill-available;
+                box-shadow: -6px 1px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .filter-section.active {
+                right: 0
+            }
+
+            #closeBtn {
+                display: block;
+                border: 1px solid #ff3f6c;
+                color: #ff3f6c;
+                background-color: white;
+                transition: all 0.3s ease;
+            }
+
+            #closeBtn:hover {
+                background-color: #ff3f6c;
+                color: #ffF;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <h1 class="logo">Vela</h1>
+            <div class="nav-links">
+                <ul>
+                    <a href="index14.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="product1.html">
+                        <li>Shop</li>
+                    </a>
+                    <a href="#category">
+                        <li>Categories</li>
+                    </a>
+                    <li>About</li>
+                    <li>contact</li>
+                </ul>
+            </div>
+            <div class="nav-search">
+                <span class="search-icon "><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="search" id="search" placeholder="Search Products...">
+                <div class="remove-icon" id="remove">
+                    <i class="fa-solid fas fa-times"></i>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#">🏠 Home</a>
+                <a href="#">🛍️ Shop</a>
+                <a href="#">📂 Category</a>
+                <a href="#">ℹ️ About</a>
+                <a href="#">📞 Contact</a>
+                <a href="#">👤 Profile</a>
+                <hr>
+                <a href="#">Login / Signup</a>
+                <a href="#">❤️ Wishlist</a>
+                <a href="#">🔥 Today’s Deals / Offers</a>
+                <a href="#">🎟️ Coupons / Discounts</a>
+                <a href="#">💬 Help & Support</a>
+            </div>
+
+
+            <div class="icon">
+                <div class="cart-icon">
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <span class="cart-count">0</span>
+
+                    <div class="mini-cart">
+                        <!---- <p class="empty-msg">Your cart is empty</p>--->
+                        <div class="cart-item">
+                            <img src="https://images.unsplash.com/photo-1541108564883-bec8126021f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHBlcmZ1bWVzfGVufDB8fDB8fHww"
+                                alt="Product">
+                            <div class="item-details">
+                                <p class="item-name">Roberto Cavalli Gemma Di Paradiso Perfume</p>
+                                <div class="selected">
+                                    <div class="option-box">
+                                        <label for="size">Size:</label>
+                                        <select id="size">
+                                            <option value="1">Free Size</option>
+                                            <option value="2">50ml</option>
+                                            <option value="3">300ml</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-box">
+                                        <label for="qty">Qty:</label>
+                                        <select id="qty">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="total">Total: ₹1200</p>
+                                <div class="cart-buttons">
+                                    <button class="view-cart">View Cart</button>
+                                    <button class="checkout">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-icon">
+                    <i class="fa-solid fa-user"></i>
+                    <div class="mini-profile">
+                        <p class="text2">👤 Welcome, Guest!</p>
+                        <a href="#">Login / Signup</a>
+                        <a href="#">🛒 View Cart</a>
+                        <a href="#">❤️ Wishlist</a>
+                        <a href="#">🔥 Today’s Deals / Offers</a>
+                        <a href="#">🎟️ Coupons / Discounts</a>
+                        <a href="#">🏠 Saved Addresses</a>
+                        <a href="#">💬 Help & Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Category Bar -->
+        <div class="category-bar">
+            <a href="#">Women</a>
+            <a href="#">Men</a>
+            <a href="#">Kids</a>
+            <a href="#">jewellery</a>
+            <a href="#">Footwear</a>
+            <a href="#">Beauty</a>
+            <a href="#">Accessories</a>
+            <a href="#">Men</a>
+            <a href="#">Kids</a>
+            <a href="#">jewellery</a>
+            <a href="#">Footwear</a>
+            <a href="#">Beauty</a>
+            <a href="#">Accessories</a>
+            <a>Sale</a>
+        </div>
+    </header>
+    <button class="filter-btn" onclick="openFilter">filter()</button>
+    <div class="main-section">
+        <div class="filter-section">
+            <div class="header">
+                <h3>Filter by</h3>
+                <button id="closeBtn">Close</button>
+            </div>
+            <div class="filter-group">
+                <h4>Category</h4>
+                <label><input type="checkbox"> Sweet Boxes</label>
+                <label><input type="checkbox"> Gift Hampers</label>
+                <label><input type="checkbox"> Decorative Candles</label>
+                <label><input type="checkbox"> Diyas & Lamps</label>
+                <label><input type="checkbox"> Dry Fruit Boxes</label>
+                <label><input type="checkbox"> Pooja Essentials</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <label><input type="checkbox"> Under ₹500</label>
+                <label><input type="checkbox"> ₹500 – ₹1000</label>
+                <label><input type="checkbox"> ₹1000 – ₹2000</label>
+                <label><input type="checkbox"> Above ₹2000</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Gift Type</h4>
+                <label><input type="checkbox"> For Him</label>
+                <label><input type="checkbox"> For Her</label>
+                <label><input type="checkbox"> For Family</label>
+                <label><input type="checkbox"> Corporate Gifts</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Rating</h4>
+                <label><input type="checkbox"> 4⭐ & above</label>
+                <label><input type="checkbox"> 3⭐ & above</label>
+            </div>
+        </div>
+        <div class="product-section">
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Brand Info -->
+            <div class="footer-col">
+                <h2 class="footer-logo">Vela</h2>
+                <p class="footer-desc">Vela – Trendy fashion for every style. Discover the latest trends and timeless
+                    classics.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Customer Service -->
+            <div class="footer-col">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter & Social -->
+            <div class="footer-col">
+                <h3>Subscribe</h3>
+                <p>Get the latest deals & trends</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a> <!-- Facebook -->
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a> <!-- Twitter -->
+                    <a href="#"><i class="fa-brands fa-square-instagram"></i></a> <!-- Instagram -->
+                    <a href="#"><i class="fa-brands fa-pinterest"></i></a> <!-- Pinterest -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>© 2025 Vela. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+
+        const giftProducts = [
+            {
+                id: 301,
+                img: "https://i.pinimg.com/736x/38/e6/83/38e683bd7e7e460cb81060b660ed4e6c.jpg",
+                name: "Golden Zari Embroidered Potli Bag",
+                price: 899,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 302,
+                img: "https://i.pinimg.com/1200x/9c/09/87/9c098739bc753b54bf4f322218428702.jpg",
+                name: "Festive Decorative Diyas Set (Pack of 6)",
+                price: 499,
+                rating: "⭐⭐⭐⭐✨"
+            },
+            {
+                id: 303,
+                img: "https://i.pinimg.com/736x/60/00/da/6000da08cad766b6dda3b7a51a405d37.jpg",
+                name: "Traditional Kundan Jewellery Gift Set",
+                price: 1299,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 304,
+                img: "https://i.pinimg.com/1200x/08/7f/fd/087ffde3c119f224d3e3b6efb0ba7caf.jpg",
+                name: "Luxury Scented Candle Gift Box (3 pcs)",
+                price: 799,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 305,
+                img: "https://i.pinimg.com/1200x/4e/3a/a0/4e3aa0b09c090ee712969ae765eacdf5.jpg",
+                name: "Handcrafted Marble Ganesh Idol",
+                price: 1599,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 306,
+                img: "https://i.pinimg.com/736x/f8/fa/6a/f8fa6a92169dd56f9de0a8e54a98f5cf.jpg",
+                name: "Decorative Diwali Lights String (20 LEDs)",
+                price: 699,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 307,
+                img: "https://i.pinimg.com/736x/ef/08/99/ef08999d0a9f130624ba5e9fab1caa4b.jpg",
+                name: "Traditional Dry Fruits Gift Box",
+                price: 1199,
+                rating: "⭐⭐⭐⭐✨"
+            },
+            {
+                id: 308,
+                img: "https://i.pinimg.com/736x/31/9a/b6/319ab6b99fe9795b07a7d184a4d12896.jpg",
+                name: "Rose Scented Wax Diyas Pack",
+                price: 599,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 309,
+                img: "https://i.pinimg.com/736x/43/a9/c2/43a9c2c94659b53e297f6e72b1602e68.jpg",
+                name: "Brass Lakshmi Ganesh Puja Idol Set",
+                price: 1799,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 310,
+                img: "https://i.pinimg.com/1200x/d6/8c/f2/d68cf2ab20ee08e58890c1dab014c584.jpg",
+                name: "Decorative Rangoli Tealight Holder",
+                price: 449,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 311,
+                img: "https://i.pinimg.com/1200x/0e/23/b8/0e23b84d6824fb613ec1a56f1ffbb0ef.jpg",
+                name: "Festive Chocolate Hamper Box",
+                price: 999,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 312,
+                img: "https://i.pinimg.com/1200x/41/63/c3/4163c39f610e3c050eecb1f577069bf5.jpg",
+                name: "Floral Metal Wall Hanging Diya Holder",
+                price: 1399,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 313,
+                img: "https://i.pinimg.com/736x/f6/14/7f/f6147f20f0942d89be1c31d732fe0e1d.jpg",
+                name: "Ethnic Mirror Work Cushion Covers (Set of 4)",
+                price: 899,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 314,
+                img: "https://i.pinimg.com/736x/08/43/08/084308ff4a7c97a925621cf002050434.jpg",
+                name: "Sandalwood Fragrance Candle Set",
+                price: 649,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 315,
+                img: "https://i.pinimg.com/1200x/01/92/54/019254e3246d29a02c71fe637ea41443.jpg",
+                name: "Handcrafted Wooden Jewelry Box",
+                price: 1099,
+                rating: "⭐⭐⭐⭐✨"
+            },
+            {
+                id: 316,
+                img: "https://i.pinimg.com/1200x/da/56/58/da5658e3fba7a4031cfd119b29036500.jpg",
+                name: "Gold Plated Peacock Earrings Set",
+                price: 899,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 317,
+                img: "https://i.pinimg.com/1200x/fd/e0/a4/fde0a4bbbed897e17c19146235ccb030.jpg",
+                name: "Decorative Toran Door Hanging",
+                price: 599,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 318,
+                img: "https://i.pinimg.com/1200x/ce/cd/1d/cecd1d75cba2456dc917493c4bddc035.jpg",
+                name: "Kundan Rakhi with Gift Box",
+                price: 499,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 319,
+                img: "https://i.pinimg.com/1200x/fa/b9/e5/fab9e509c37ae68659e389cc78aea59b.jpg",
+                name: "Festive Copper Bottle Gift Set",
+                price: 1599,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 320,
+                img: "https://i.pinimg.com/1200x/43/56/80/43568042db43265e60814d766356c37a.jpg",
+                name: "Designer Candle Holder with Crystals",
+                price: 999,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 321,
+                img: "https://i.pinimg.com/736x/9d/62/46/9d624679d6112105256d1cfd751c59ae.jpg",
+                name: "Decorative Lotus Metal Tea Light Set",
+                price: 849,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 322,
+                img: "https://i.pinimg.com/736x/5f/32/c8/5f32c843ddf15c68ac81a2497a9131e7.jpg",
+                name: "Golden Metal Pooja Thali Set",
+                price: 1399,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 323,
+                img: "https://i.pinimg.com/1200x/bc/a7/73/bca773bec6be945b47d1ae50559d3b26.jpg",
+                name: "Ethnic Jute Potli Bag Combo",
+                price: 749,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 324,
+                img: "https://i.pinimg.com/736x/c6/ec/0f/c6ec0f80ed37c86f3d24a751213aac63.jpg",
+                name: "Festive Sweets Box Gift Pack",
+                price: 1199,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 325,
+                img: "https://i.pinimg.com/736x/9f/11/4f/9f114f309bbb3c7a38308aeb70513846.jpg",
+                name: "Diwali Decor Fairy Light Jar",
+                price: 599,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 326,
+                img: "https://i.pinimg.com/1200x/47/b1/8f/47b18fde2e20acb90e2f05ab24bbbbb9.jpg",
+                name: "Elegant Crystal Showpiece Gifting Item",
+                price: 899,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 327,
+                img: "https://i.pinimg.com/1200x/ce/f0/b6/cef0b69d6d0e5e17e7307cbccac8c657.jpg",
+                name: "Miniature Ganesha Idol Gift Box",
+                price: 699,
+                rating: "⭐⭐⭐⭐✨"
+            },
+            {
+                id: 328,
+                img: "https://i.pinimg.com/1200x/c6/4a/73/c64a731094a501f01f3d20600fa444a0.jpg",
+                name: "Ethnic Dupatta Gift Wrap",
+                price: 999,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 329,
+                img: "https://i.pinimg.com/736x/09/ab/aa/09abaacdf8c39aaa8bce69324324729a.jpg",
+                name: "Brass Peacock Diya Stand",
+                price: 1299,
+                rating: "⭐⭐⭐⭐⭐"
+            },
+            {
+                id: 330,
+                img: "https://i.pinimg.com/1200x/a8/3a/0c/a83a0c742581fe6f8ee81b1948845fc8.jpg",
+                name: "Handcrafted Wooden temple",
+                price: 1499,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 331,
+                img: "https://i.pinimg.com/1200x/68/ec/79/68ec799c97505cd2bc4003035002f6e9.jpg",
+                name: "Designer Aroma Diffuser Lamp",
+                price: 999,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 332,
+                img: "https://i.pinimg.com/1200x/82/0a/e8/820ae873a1765d3ca27ddce1e9bc5173.jpg",
+                name: "Premium Dry Fruit Jar Set",
+                price: 1299,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 333,
+                img: "https://i.pinimg.com/736x/bc/e9/3b/bce93b520ef575541d823b233a5d991d.jpg",
+                name: "Luxury Handcrafted Candle Holders",
+                price: 899,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 334,
+                img: "https://i.pinimg.com/1200x/7c/a6/b6/7ca6b61dca78e67a4daa1f58fd0576cc.jpg",
+                name: "Ethnic Beaded Coaster Gift Set",
+                price: 599,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 335,
+                img: "https://i.pinimg.com/1200x/2b/e7/d4/2be7d4a05a5c6b611d21a0c51f81f82c.jpg",
+                name: "Classic Photo Frame Gift Box",
+                price: 899,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 336,
+                img: "https://i.pinimg.com/1200x/6b/47/31/6b4731bb900cdff9c228642a61f75ce0.jpg",
+                name: "Handmade Clay Decorative Diyas",
+                price: 499,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 337,
+                img: "https://i.pinimg.com/1200x/34/5a/11/345a11d23666dd08e67772b2698abe15.jpg",
+                name: "Gilded Flower Candle Bowl Gift",
+                price: 699,
+                rating: "⭐⭐⭐✨"
+            },
+            {
+                id: 338,
+                img: "https://i.pinimg.com/736x/68/7e/5d/687e5da5923784b2bc5a4bb403e9a687.jpg",
+                name: "Festive Essential Oil Gift Box",
+                price: 1299,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 339,
+                img: "https://i.pinimg.com/1200x/a5/df/1f/a5df1f795dae7977dc0fa9e7023cff62.jpg",
+                name: "Decorative Gifting Lantern with Candle",
+                price: 1099,
+                rating: "⭐⭐⭐⭐"
+            },
+            {
+                id: 340,
+                img: "https://i.pinimg.com/736x/ec/9b/ee/ec9bee76f0a7b774a613e266abf0176f.jpg",
+                name: "Luxury Chocolate Gift Hamper Box",
+                price: 1399,
+                rating: "⭐⭐⭐⭐⭐"
+            }
+        ];
+
+
+
+
+        let urlParams3 = new URLSearchParams(window.location.search);
+        let giftid = parseInt(urlParams3.get("id"));
+
+        let list = document.querySelector(".product-section");
+        if (giftid === 161) {
+
+            function giftProduct(arry) {
+                arry.forEach(function (user) {
+
+                    let card = document.createElement("card");
+                    card.className = "products-card"
+
+                    let img = document.createElement("img");
+                    img.src = user.img;
+
+                    let name = document.createElement("h2")
+                    name.textContent = user.name;
+
+                    let price = document.createElement("p");
+                    price.textContent = user.price;
+
+                    let rating = document.createElement("span");
+                    rating.textContent = user.rating;
+
+                    let btn = document.createElement("button");
+                    btn.textContent = "Buy-Now";
+                    btn.className = "Buy-Now"
+                    btn.dataset.id = user.id
+
+                    document.querySelectorAll(".Buy-Now").forEach(function (btn) {
+                        btn.addEventListener("click", function () {
+                            window.location.href = `payment.html?id=${btn.dataset.id}`;
+                        });
+                    })
+
+                    card.appendChild(img);
+                    card.appendChild(name);
+                    card.appendChild(price);
+                    card.appendChild(rating);
+                    card.appendChild(btn);
+                    list.appendChild(card);
+
+
+                })
+            }
+        }
+        giftProduct(giftProducts);
+
+        function filterBtn() {
+            let filterBtn = document.querySelector(".filter-btn");
+            let filterSection = document.querySelector(".filter-section");
+            let closeBtn = document.querySelector("#closeBtn");
+
+            filterBtn.addEventListener("click", function () {
+                filterSection.classList.add("active");
+            })
+            closeBtn.addEventListener("click", function () {
+                filterSection.classList.remove("active");
+            })
+
+        }
+        filterBtn()
+
+
+
+
+
+    </script>
+</body>
+
+</html>

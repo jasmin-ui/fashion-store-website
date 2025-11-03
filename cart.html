@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Cart Page Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px;
+    }
+
+    /* Cart Container */
+    #cart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Empty Cart Message */
+    #empty-cart-msg {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #888;
+      margin-top: 50px;
+    }
+
+    /* Each Cart Item */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background: #ffe6f2;
+      /* light pink background */
+      border: 1px solid #ff80bf;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .cart-item:hover {
+      transform: scale(1.02);
+    }
+
+    /* Product Image */
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    /* Product Info */
+    .cart-item h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #111;
+    }
+
+    .cart-item p {
+      margin: 5px 0 0;
+      font-size: 1rem;
+      color: #e91e63;
+    }
+
+    .buy-btn {
+      background-color: #fff;
+      color: black;
+      border: 1px solid black;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+      margin-left: 10px;
+     
+
+    }
+
+    .buy-btn:hover {
+      background-color: black;
+      color: #fff;
+    }
+
+    .remove-btn {
+      background-color: #fff;
+      color: #e91e63;
+      border: 1px solid #e91e63;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .remove-btn:hover {
+      background-color: #e91e63;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .cart-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .cart-item img {
+        margin-bottom: 10px;
+      }
+
+      .cart-item h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #111;
+}
+    }
+  </style>
+</head>
+
+<body>
+  <h1>My Shopping Cart</h1>
+  <div id="cart-container"></div>
+  <p id="empty-cart-msg"></p>
+
+  <script src="script13.js"></script>
+  <script src="script8.js"></script>
+
+</body>
+
+</html>
