@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Success</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #ff3f6c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #e60073;
+      margin-bottom: 10px;
+          font-size: 1.9rem;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      margin-bottom: 25px;
+      white-space: nowrap;
+    }
+
+    .Success-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 450px;
+      width: 90%;
+
+    }
+
+    .btn {
+      background: #e60073;
+      padding: 10px 10px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+
+    }
+
+    @media(max-width:600px) {
+      .Success-box {
+        margin: 20px;
+        padding: 15px;
+        max-width: 300px;
+      }
+
+      p {
+        overflow: auto;
+        animation: move 12s linear infinite;
+        display: inline-block;
+        padding-left: 100%;
+      }
+
+      .scroll-container {
+        overflow: hidden;
+        padding: 0 20px;
+      }
+
+      @keyframes move {
+        from {
+          transform: translateX(0)
+        }
+
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="Success-box">
+    <h1>🎉 Order Successful!</h1>
+    <div class="scroll-container">
+      <p>Thank you for shopping with us. Your order has been placed successfully.</p>
+    </div>
+    <a href="index14.html" class="btn">Back to Home</a>
+  </div>
+
+</body>
+
+</html>
